@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector3;
  * Contains built-in input adapter to handle it.
  *
  * NOTE: the actualXXX values have animation smoothing applied to them (i.e. the ones actually seen by the player)
- * 
+ *
  * @author themorfeus
  */
 public class OrbitingCameraController extends InputAdapter{
@@ -46,14 +46,23 @@ public class OrbitingCameraController extends InputAdapter{
      * Camera's yaw
      * */
     private float yaw;
+    private float actualYaw;
 
     /**
      * Camera's pitch
      * */
-    private float actualYaw;
-
     private float pitch = 70;
     private float actualPitch = 70;
+
+    /**
+     * Whether or not allow for camera pitch movement (i.e. up and down)
+     * */
+    private boolean allowPitchMovement = false;
+
+    /**
+     * Whether or not allow for camera yaw movement (i.e. left to right)
+     * */
+    private boolean allowYawMovement = false;
 
     /**
      * Camera's pivot point. The point at which the camera is looking at.
@@ -175,6 +184,20 @@ public class OrbitingCameraController extends InputAdapter{
         return pitch;
     }
 
+    /**
+     * Sets wheter or not pitch movement is allowed
+     * */
+    public void setAllowPitchMovement(boolean allow){
+        this.allowPitchMovement = allow;
+    }
+
+    /**
+     * Sets wheter or not yaw movement is allowed
+     * */
+    public void setAllowYawMovement(boolean allow){
+        this.allowYawMovement = allow;
+    }
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         touchStartX = screenX;
@@ -188,7 +211,7 @@ public class OrbitingCameraController extends InputAdapter{
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
 
-            pitch += (lastTouchY - (Gdx.graphics.getHeight() - screenY))/20;
+            if(allowPitchMovement)pitch += (lastTouchY - (Gdx.graphics.getHeight() - screenY))/20;
 
         }else if(Gdx.input.isButtonPressed(Input.Buttons.MIDDLE)){
 
@@ -205,8 +228,7 @@ public class OrbitingCameraController extends InputAdapter{
 
         }else if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
 
-            float dx = lastTouchX - screenX;
-            yaw += dx/5f;
+            if(allowYawMovement)yaw += (lastTouchX - screenX)/5f;
 
         }
 
