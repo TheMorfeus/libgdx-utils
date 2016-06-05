@@ -198,6 +198,9 @@ public class OrbitingCameraController extends InputAdapter{
         this.allowYawMovement = allow;
     }
 
+    /**
+     * @return false, for further input handling
+     * */
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         touchStartX = screenX;
@@ -206,7 +209,10 @@ public class OrbitingCameraController extends InputAdapter{
         lastTouchY = touchStartY;
         return false;
     }
-
+    
+    /**
+     * @return false, for further input handling
+     * */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
@@ -234,14 +240,17 @@ public class OrbitingCameraController extends InputAdapter{
 
         lastTouchX = screenX;
         lastTouchY = Gdx.graphics.getHeight() - screenY;
-        return true;
+        return false;
     }
-
+    
+    /**
+     * @return false, for further input handling
+     * */
     @Override
     public boolean scrolled(int amount) {
         orbitRadius += (amount * orbitRadius * .02f)/.25f;
         if(orbitRadius<minimalOrbitRadius && minimalOrbitRadius!=0)orbitRadius = minimalOrbitRadius;
         if(orbitRadius>maximalOrbitRadius&& maximalOrbitRadius!=0)orbitRadius = maximalOrbitRadius;
-        return true;
+        return false;
     }
 }
