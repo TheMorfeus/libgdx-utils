@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Vector3;
  *
  * NOTE: the actualXXX values have animation smoothing applied to them (i.e. the ones actually seen by the player)
  *
+ * This code is distributed under MIT license
+ * 
  * @author themorfeus
  */
 public class OrbitingCameraController extends InputAdapter{
