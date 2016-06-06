@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 /**
  * Basic class that allows the camera to orbit around a given pivot point.
  * Contains built-in input adapter to handle it.
+ * If one were to use an {@link com.badlogic.gdx.InputMultiplexer}, this should be the last InputProcessor added to order.
  *
  * NOTE: the actualXXX values have animation smoothing applied to them (i.e. the ones actually seen by the player)
  *
@@ -219,7 +220,7 @@ public class OrbitingCameraController extends InputAdapter{
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
 
-            if(allowPitchMovement)pitch += (lastTouchY - (Gdx.graphics.getHeight() - screenY))/20;
+            if(allowPitchMovement)pitch += (lastTouchY - (Gdx.graphics.getHeight() - screenY))/10;
 
         }else if(Gdx.input.isButtonPressed(Input.Buttons.MIDDLE)){
 
